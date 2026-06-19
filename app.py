@@ -736,6 +736,13 @@ def Manifest():
 	with open("data/persist/manifest.json", "r") as f:
 		return f.read()
 
+@app.route("/persist/static/Blueprints/<string:filename>")
+def BlueprintFile(filename):
+	filepath = f"data/persist/static/Blueprints/{filename}"
+	if not os.path.exists(filepath):
+		return make_response("Blueprint not found!", 404)
+	return send_from_directory("data/persist/static/Blueprints", filename)
+
 #only works in v1.18.0
 @app.route("/persist/static/blueprints", methods=['GET'])
 def Blueprints():
